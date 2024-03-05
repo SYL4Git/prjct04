@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home';
 
 const dummy = [
 	{
@@ -25,11 +26,7 @@ const dummy = [
 function App() {
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<Routes>
-					<Route></Route>
-				</Routes>
-			</BrowserRouter>
+			<Home />
 		</div>
 	);
 }
