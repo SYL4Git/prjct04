@@ -4,6 +4,7 @@ import {
 	positionOptions,
 } from '../component/useCurrentLocation';
 import { API } from '../component/API';
+import axios from 'axios';
 // import { Header } from '../styled/Header';
 
 const Home = () => {
@@ -25,7 +26,8 @@ const Home = () => {
 			// Geolocation 작동 실패시 'error' 메세지 출력
 		}
 		if (location) {
-			const axios = require('axios');
+			// const axios = require(axios);
+
 			// axios
 			// 	.get(
 			// 		`http://api.openweathermap.org/geo/1.0/reverse?lat=${
