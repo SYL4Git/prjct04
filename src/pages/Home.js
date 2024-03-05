@@ -26,46 +26,45 @@ const Home = () => {
 		}
 		if (location) {
 			const axios = require('axios');
+			// axios
+			// 	.get(
+			// 		`http://api.openweathermap.org/geo/1.0/reverse?lat=${
+			// 			location.latitude
+			// 		}&lon=${location.longitude}&limit=${1}&appid=${apiKey}`
+			// 	)
+			// 	// reversegeocoding api 접속하고, 경도, 위도 불러오기
+			// 	// * 언어: 한국어
+			// 	.then((locationResponse) => {
+			// 		console.log(locationResponse);
+			// 		const locationData = locationResponse.data[0];
+			// 		// locationData 변수에 api 의 첫번째 배열을 지정
+			// 		console.log(locationData);
+			// 		setCountry(locationData.country);
+			// 		setCity(locationData.name);
+			// 		// locationData 안에 있는 국가, 도시 이름 불러오기
+			// 	});
 			axios
 				.get(
-					`http://api.openweathermap.org/geo/1.0/reverse?lat=${
-						location.latitude
-					}&lon=${location.longitude}&limit=${1}&appid=${apiKey}&lang=kr`
+					`https://api.openweathermap.org/data/3.0/onecall?lat=${location.latitude}&lon=${location.longitude}&appid=${apiKey}&units=metric`
 				)
-				// reversegeocoding api 접속하고, 경도, 위도 불러오기
+				// onecall api 에 access 한 뒤, latitude(위도), longitude(경도) 읽어오기
+				// * 단위는 미터법 = units=metric
 				// * 언어: 한국어
-				.then((locationResponse) => {
-					console.log(locationResponse);
-					const locationData = locationResponse.data[1];
-					// locationData 변수에 api 의 첫번째 배열을 지정
-					console.log(locationData);
-					setCountry(locationData.country);
-					setCity(locationData.name);
-					// locationData 안에 있는 국가, 도시 이름 불러오기
+				.then((weatherResponse) => {
+					console.log(weatherResponse);
+					// setWeather(weatherResponse.current.weather.main);
+					// 현재 날씨 요약
+					// setWeatherIcon(weatherResponse.current.weather.icon);
+					// 현재 날씨 아이콘
+					// setTemp(`${weatherResponse.current.temp} ℃`);
+					// 현재 온도
+					setCity(weatherResponse.data.name);
+					setWeather(weatherResponse.data.weather[0].icon);
 				});
 
-			return (
-				axios
-					.get(
-						`https://api.openweathermap.org/data/3.0/onecall?lat=${location.latitude}&lon=${location.longitude}&appid=${apiKey}&units=metric&lang=kr`
-					)
-					// onecall api 에 access 한 뒤, latitude(위도), longitude(경도) 읽어오기
-					// * 단위는 미터법 = units=metric
-					// * 언어: 한국어
-					.then((weatherResponse) => {
-						console.log(weatherResponse);
-						setWeather(weatherResponse.current.weather.main);
-						// 현재 날씨 요약
-						setWeatherIcon(weatherResponse.current.weather.icon);
-						// 현재 날씨 아이콘
-						setTemp(`${weatherResponse.current.temp} ℃`);
-						// 현재 온도
-					})
-
-				// .catch(() => {
-				// 	alert('Failed to call API.');
-				// })
-			);
+			// .catch(() => {
+			// 	alert('Failed to call API.');
+			// })
 		}
 	}, [error, location]);
 
